@@ -1,0 +1,28 @@
+---
+title: "Part1_final"
+author: "Seung ah Ha"
+date: '2018 10 17 '
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Part 1: R
+
+Here, we will use functions in "source.R":
+```{r}
+source("source.R")
+
+compare_outcomes(1000)
+compare_outcomes(10000)
+compare_outcomes(100000)
+
+```
+
+As iteration number gets large from 1000 to 100000, the mean of the values in the chain for 'a' tends to converge to a specific value, and it predicts the trueA better when the iteration number gets larger. When there is only 1000 iteration, the mean for 10 loops tend to varies a lot compared to 100000 iterations. In addition, the standard deviation for those 1000 iterations are larger than the standard deviation of the values in the chain for 'a' when we iterates for 100000 times. Almost all of those std values of 'a' in the chain in compare_outcomes(1000) are bigger than that of compare_outcome(100000). 
+Thus, we can conclude that as the number of iteration number increases, the accuracy of this algorithm in finding 'a' will increase. As we can see at the last result of compare_outcome(100000), the predicted value of 'a' is prettly close to true 'a'. 
+

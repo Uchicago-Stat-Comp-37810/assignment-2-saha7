@@ -1,3 +1,14 @@
+trueA <- 5 # Here we specify true A
+trueB <- 0 # and true B
+trueSd <- 10 # and finally true sd
+samplesize <- 31 # and the sample size
+
+# create independent x-values
+x <- (-(samplesize-1)/2):((samplesize-1)/2) # gives the x values from -15 to 15
+# create dependent values according to ax+b+N(0, sd)
+y <- trueA*x+trueB+rnorm(n=samplesize, mean=0, sd=trueSd) 
+# using the true parameters that we specified above, and by adding soem noise from Normal distribution with mean 0 and sd with true sd that we specified above, we create y values.
+
 # This likelihood function gives the sum of all likelihoods of y by using dnorm functions. We also set that it yields log values. (=> logf(x))
 likelihood <- function(param){
   a=param[1]
@@ -70,3 +81,20 @@ summaryplot <- function(chain, burnIn, truevec){
     abline(h = true[i], col="red" )
   }
 }
+
+# 5. New function
+
+compare_outcomes <- function(iteration){
+  result <- matrix(rep(0,20),10,2)
+  
+  for(i in 1:10){
+    a <- runif(1, 0, 10)
+    b <- rnorm(1, 0, 5)
+    sd <- runif(1, 0, 30)
+    param <- c(a, b, sd)
+    chain <- run_metropolis_MCMC(param, iteration)
+    result[i, ] <- c(mean(chain[,1]), sd(chain[,1]))
+  }
+  return(result)
+}
+

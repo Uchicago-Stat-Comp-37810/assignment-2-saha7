@@ -33,3 +33,30 @@ summaryplot(chain, burnIn = 5000, true)
 
 # for comparison:
 summary(lm(y~x))
+
+# Part1:R #5 New function
+
+# We want to make a function called 'compare_outcomes' with input of iteration number
+compare_outcomes <- function(iteration){
+  result <- matrix(rep(0,20),10,2) # We will later assign values to this result matrix
+  
+  for(i in 1:10){
+    a <- runif(1, 0, 10) # We generate a random a from a prior distribuion for each loop
+    b <- rnorm(1, 0, 5) # and also a random b
+    sd <- runif(1, 0, 30) # and also a random sd 
+    param <- c(a, b, sd) # we combine those parameters into a vector
+    
+    # We make 'chain' for 'iteration' that we will assign
+    chain <- run_metropolis_MCMC(param, iteration)
+    # Put mean value at the first column and the std at the second 
+    result[i, ] <- c(mean(chain[,1]), sd(chain[,1]))   
+    }
+  return(result)
+}
+
+# Here are the outcome matrices for iteration of 1000, 10000 and 100000. 
+compare_outcomes(1000)
+compare_outcomes(10000)
+compare_outcomes(100000)
+
+summaryplot(chain, burnIn = 5000, true)
